@@ -53,8 +53,8 @@ function setupTerminals() {
 }
 
 function drawBattery() {
-  const x = windowWidth * 0.1;
-  const y = windowHeight * 0.25;
+  const x = (windowWidth * 0.1)-5;
+  const y = (windowHeight * 0.25)+20;
 
   fill(200);
   rect(x, y, 30, 100);
@@ -63,15 +63,15 @@ function drawBattery() {
   textSize(18);
   text('+', x + 5, y - 10);
   text('-', x + 45, y - 10);
-
-  drawTerminal("batteryPos");
-  drawTerminal("batteryNeg");
+  const z=-35;
+  drawTerminal("batteryPos",z);
+  drawTerminal("batteryNeg",z+8);
 }
 
 function drawBeaker() {
   const x = windowWidth * 0.5;
   const y = windowHeight * 0.5;
-
+  const z=20;
   noFill();
   stroke(0);
   strokeWeight(2);
@@ -84,8 +84,8 @@ function drawBeaker() {
   rect(x - 30, y - 50, 10, 80);
   rect(x + 20, y - 50, 10, 80);
 
-  drawTerminal("electrode1");
-  drawTerminal("electrode2");
+  drawTerminal("electrode1",-20);
+  drawTerminal("electrode2",z);
 
   if (circuitComplete()) {
     fill(100, 100, 255, 150);
@@ -99,6 +99,7 @@ function drawBeaker() {
 function drawBulb() {
   const x = windowWidth * 0.85;
   const y = windowHeight * 0.25;
+  const z = 0;
   const glow = circuitComplete();
 
   stroke(0);
@@ -107,29 +108,29 @@ function drawBulb() {
   stroke(0);
   line(x - 10, y, x + 10, y);
 
-  drawTerminal("bulbPos");
-  drawTerminal("bulbNeg");
+  drawTerminal("bulbPos",z);
+  drawTerminal("bulbNeg",z);
 }
 
 function drawSwitch() {
   const x = windowWidth * 0.45;
   const y = windowHeight * 0.3;
-
+  const z=10;
   fill(switchOn ? 'green' : 'red');
-  rect(x, y, 80, 20, 5);
+  rect(x, y, 100, 20, 5);
   fill(255);
   textSize(12);
   textAlign(CENTER, CENTER);
   text(switchOn ? 'ON' : 'OFF', x + 40, y + 10);
 
-  drawTerminal("switchIn");
-  drawTerminal("switchOut");
+  drawTerminal("switchIn",30);
+  drawTerminal("switchOut",10);
 }
 
-function drawTerminal(key) {
+function drawTerminal(key,z) {
   let pos = terminals[key];
   fill(0);
-  ellipse(pos.x, pos.y, 8);
+  ellipse(pos.x-z, pos.y, 8);
 }
 
 function drawWires() {
@@ -200,8 +201,8 @@ function drawLabels() {
   textAlign(LEFT);
   text("Battery", windowWidth * 0.08, windowHeight * 0.48);
   text("Beaker with Electrolyte", windowWidth * 0.45, windowHeight * 0.68);
-  text("Electrodes", windowWidth * 0.46, windowHeight * 0.43);
-  text("Switch (clickable)", windowWidth * 0.43, windowHeight * 0.28);
+  text("Electrodes", windowWidth * 0.40, windowHeight * 0.43);
+  text("       Switch (clickable)", windowWidth * 0.43, windowHeight * 0.28);
   text("Bulb", windowWidth * 0.83, windowHeight * 0.23);
 }
 
