@@ -1,0 +1,32 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+
+# Django-specific
+*.sqlite3        # Default DB file
+*.log
+media/
+staticfiles/
+static_root/
+
+# Environment and secrets
+.env
+*.env
+
+# IDE/editor settings
+.vscode/
+.idea/
+
+# Virtual environments
+# Virtual environment
+
+
+venv/
+ENV/
+.env/
+env/
+
+# OS-generated
+.DS_Store
+Thumbs.db
+>

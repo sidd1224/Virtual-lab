@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Ohm's Law Simulation</title>
+
+    <!-- p5.js libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js"></script>
+
+    <!-- Local stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'labs/experiments/class_8/physics/ohms_law.css' %}">
+</head>
+<body>
+    <main>
+        <!-- Your simulation canvas will appear here -->
+    </main>
+    
+    <!-- Local JS -->
+    <script src="{% static 'labs/experiments/class_'|add:student_class|add:'/'|add:subject|add:'/'|add:experiment_name|add:'.js' %}"></script>
+</body>
+</html>
+

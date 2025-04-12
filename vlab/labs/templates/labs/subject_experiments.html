@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ subject }} Experiments</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'labs/css/subjects_experiment.css' %}">
+</head>
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <a href="{% url 'labs:experiment_dashboard' %}?class={{ current_class }}" class="back-button">&#8592; Back</a>
+    <span class="title">{{ subject }} - Class {{ current_class }}</span>
+  </div>
+
+  <h1 class="subject-heading">{{ subject }} Experiments</h1>
+
+  <div class="experiments-container">
+    {% for experiment in experiments %}
+      <div class="experiment-card">
+        <div class="card-title">{{ experiment.title }}</div>
+        <div class="tiny-buttons">
+          <a href="{% url 'labs:run_experiment_theory' experiment.id %}">Theory</a>
+          <a href="{% url 'labs:run_experiment' experiment.id %}">Simulation</a>
+        </div>
+      </div>
+    {% empty %}
+      <p class="no-experiments">No experiments available for {{ subject }} in Class {{ current_class }}</p>
+    {% endfor %}
+  </div>
+
+</body>
+</html>

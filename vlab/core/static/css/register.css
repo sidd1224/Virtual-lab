@@ -1,0 +1,121 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+/* Apply to body or outermost wrapper */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* center horizontally */
+    align-items: center;     /* center vertically */
+    background: linear-gradient(135deg, #6E8EF1, #A777E3); /* your gradient */
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .login-container {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    width: 150%;
+    max-width: 600px;
+    animation: fadeIn 1.2s ease;
+  }
+  
+  
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: 0.3s ease;
+}
+
+input:focus, select:focus {
+  border-color: #6E8EF1;
+  box-shadow: 0 0 8px rgba(110, 142, 241, 0.4);
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #6E8EF1;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #5a78d1;
+}
+
+.messages p, .messages li {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border-radius: 6px;
+  animation: slideIn 0.4s ease;
+  list-style: none;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.links {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.links a {
+  color: #6E8EF1;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.links a:hover {
+  color: #3e5ee7;
+}

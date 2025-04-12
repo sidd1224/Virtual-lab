@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Experiment Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'labs/css/dashboard.css' %}">
+</head>
+<body>
+
+   <!-- Hidden checkbox -->
+   <input type="checkbox" id="menu-toggle" style="display:none">
+
+   <!-- Sidebar -->
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <label for="menu-toggle" class="close-btn">&times;</label>
+    <a href="{% url 'labs:profile' %}">Profile</a>
+  </div>
+  
+</div>
+
+<!-- Topbar -->
+<div class="topbar">
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+  <span class="title">Class {{ current_class }}</span>
+
+  <form method="get" action="{% url 'labs:experiment_dashboard' %}" class="dropdown-form">
+    <select name="class" class="dropdown-select" onchange="this.form.submit()">
+      {% for c in available_classes %}
+        <option value="{{ c }}" {% if c == current_class %}selected{% endif %}>Class {{ c }}</option>
+      {% endfor %}
+    </select>
+  </form>
+</div>
+
+
+  
+
+
+  <!-- Subject Heading -->
+  <h1 class="subject-heading">SUBJECTS</h1>
+<!-- Subject Cards -->
+<div class="subjects-container">
+    {% for subject in experiments_by_subject %}
+      {% if subject == "Chemistry" %}
+        {% with "https://wallpaperaccess.com/full/3481577.jpg" as image_url %}
+          <a href="{% url 'labs:subject_experiments' subject='chemistry' %}?class={{ current_class }}" class="subject-button">
+            <div class="category-card" style="background-image: url('{{ image_url }}');">
+              <div class="category-text">{{ subject|upper }}</div>
+            </div>
+          </a>
+        {% endwith %}
+      {% elif subject == "Physics" %}
+        {% with "https://wallpapercave.com/wp/wp4254574.jpg" as image_url %}
+          <a href="{% url 'labs:subject_experiments' subject='physics' %}?class={{ current_class }}" class="subject-button">
+            <div class="category-card" style="background-image: url('{{ image_url }}');">
+              <div class="category-text">{{ subject|upper }}</div>
+            </div>
+          </a>
+        {% endwith %}
+      {% elif subject == "Biology" %}
+        {% with "https://blog.fhyzics.net/hubfs/lifesciences_microscope-handholdingslide.jpg" as image_url %}
+          <a href="{% url 'labs:subject_experiments' subject='biology' %}?class={{ current_class }}" class="subject-button">
+            <div class="category-card" style="background-image: url('{{ image_url }}');">
+              <div class="category-text">{{ subject|upper }}</div>
+            </div>
+          </a>
+        {% endwith %}
+      {% endif %}
+    {% endfor %}
+  </div>
+  
+
+  <!-- Optional: Scroll to subjects -->
+  <script>
+    const hash = window.location.hash;
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>

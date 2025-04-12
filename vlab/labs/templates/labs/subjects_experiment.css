@@ -1,0 +1,139 @@
+/* Reset and base styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #007bff;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #e9f0f7;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Topbar fixed at top */
+  .topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+  
+  /* Back button */
+  .back-button {
+    text-decoration: none;
+    font-size: 18px;
+    color: #007bff;
+    font-weight: 600;
+  }
+  
+  /* Page title */
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Subject heading (below topbar) */
+  .subject-heading {
+    margin-top: 80px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Container for all experiment cards */
+  .experiments-container {
+    margin: 30px auto;
+    max-width: 1100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+  
+  /* Individual card */
+  .experiment-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    background-color: white;
+    border-radius: 12px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .experiment-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Image section */
+  .card-image {
+
+    position: relative;
+    height: 220px; /* You can adjust this height if needed */
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  /* Card title */
+  .card-title {
+    position: absolute;
+  bottom: 20px; /* Pushes the text down inside the image */
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.4); /* Optional: for better visibility */
+  padding: 6px 12px;
+  border-radius: 6px;
+  }
+  
+  /* Fallback message */
+  .no-experiments {
+    margin-top: 120px;
+    text-align: center;
+    font-size: 20px;
+    color: #666;
+  } 
+  .tiny-buttons {
+    display: flex;
+    gap: 6px;
+    justify-content: flex-end;
+    padding: 0 10px 10px 10px;
+  }
+  
+  .tiny-buttons a {
+    font-size: 12px;
+    padding: 4px 8px;
+    background-color: rgb(57, 56, 56);
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+  
+  .tiny-buttons a:hover {
+    background-color: #0056b3;
+  }
+  
+  
+  
