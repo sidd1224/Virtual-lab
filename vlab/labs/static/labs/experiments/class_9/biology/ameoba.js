@@ -64,7 +64,7 @@ function drawMicroscopeScene() {
   // Microscope Circle View
   resetMatrix();
   noFill();
-  stroke(255);
+  noStroke(255);
   strokeWeight(4);
   ellipse(width / 2, height / 2, min(width, height) * 0.5);
 
@@ -150,8 +150,8 @@ function drawLabels() {
   textAlign(LEFT);
   textSize(min(width, height) * 0.015);
 
-  let x = 60;
-  let y = 60;
+  let x = -260;
+  let y = -260;
   let gap = 20;
 
   text("🔬 Amoeba Under Microscope", x, y);
