@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path('register/', views.register_student, name='register'),
-    path('login/', views.login_student, name='login'),
+    path('', views.login_student, name='login'),
 
     # Correct password reset flow URLs
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='password_reset.html'), name='password_reset'),

@@ -200,10 +200,10 @@ function displayText2D() {
   let lightVal = lightSlider.value();
   let elapsed = ((millis() - startTime) / 1000).toFixed(1);
 
-  text("Light Intensity: " + lightVal + "%", -260, -230);
-  text("Droplet Formation Rate: " + lightVal + "%", -260,-215);
-  text("Total Droplets Formed: " + dropletCount, -260,-200);
-  text("Time Elapsed: " + elapsed + "s", -260,-185);
+  text("Light Intensity: " + lightVal + "%", -700, -290);
+  text("Droplet Formation Rate: " + lightVal + "%", -700,-275);
+  text("Total Droplets Formed: " + dropletCount, -700,-260);
+  text("Time Elapsed: " + elapsed + "s", -700,-245);
   text("Experiment: Transpiration in Plants", -120, 220);
 }
 

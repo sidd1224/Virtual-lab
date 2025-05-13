@@ -75,16 +75,26 @@ LOGIN_URL = '/login/'  # Your custom login URL
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databasespython mange
 
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+ # Optional if using docker-compose with env_file
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'vlab_db',
-        'USER': 'postgres',
-        'PASSWORD': 'smp@123',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv('DJANGO_DB_NAME'),
+        'USER': os.getenv('DJANGO_DB_USER'),
+        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD'),
+        'HOST': os.getenv('DJANGO_DB_HOST', 'db'),
+        'PORT': os.getenv('DJANGO_DB_PORT', '5432'),
     }
 }
+
+
 
 
 

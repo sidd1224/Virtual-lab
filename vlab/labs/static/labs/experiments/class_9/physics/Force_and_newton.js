@@ -81,7 +81,7 @@ function draw() {
 
   let y = -330;
   for (let line of lines) {
-    text(line, -290, y);
+    text(line, -590, y);
     y += 25;
   }
 }
