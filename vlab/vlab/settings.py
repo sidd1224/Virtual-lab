@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+ALLOWED_HOSTS = ["*", ".run.app", "localhost", "127.0.0.1"]
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,7 +84,8 @@ DEBUG = os.getenv("DEBUG", "0") == "1"
 
 SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret")
 
-ALLOWED_HOSTS = ["*"]  # for Cloud Run
+
+ # for Cloud Run
 
 DATABASES = {
     "default": {
