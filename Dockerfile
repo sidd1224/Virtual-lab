@@ -1,27 +1,21 @@
 # Use official Python image
 FROM python:3.10-slim
 
-# Install system dependencies (important for psycopg2 etc.)
-RUN apt-get update && apt-get install -y \
-    gcc \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Install dependencies
+RUN apt-get update && apt-get install -y gcc libpq-dev && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
 
-# Install Python packages
+# Install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt gunicorn psycopg2-binary
 
-# Copy project files
+# Copy all project files
 COPY . .
 
-WORKDIR /app/vlab
-
-
-# Expose Django port
+# Expose port for Cloud Run
 EXPOSE 8080
 
-# Use Cloud Run's PORT variable dynamically
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:${PORT:-8080}"]
+# Run migrations + start server
+CMD ["sh", "-c", "python manage.py migrate && gunicorn vlab.wsgi:application --bind 0.0.0.0:${PORT:-8080}"]
