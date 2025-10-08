@@ -1,13 +1,14 @@
-version: '3.8'
 
 
 services:
   db:
     image: postgres:14
+    env_file:
+      - .env
     environment:
-      POSTGRES_DB: vlab_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: smp@123
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -15,17 +16,19 @@ services:
 
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:${PORT:-8000}
     volumes:
       - .:/app
     ports:
       - "8000:8000"
+    env_file:
+      - .env
     environment:
-      - DEBUG=1
-      - DJANGO_DB_HOST=db
-      - DJANGO_DB_NAME=vlab_db
-      - DJANGO_DB_USER=postgres
-      - DJANGO_DB_PASSWORD=smp@123
+      DEBUG: ${DEBUG}
+      DJANGO_DB_HOST: ${DJANGO_DB_HOST}
+      DJANGO_DB_NAME: ${DJANGO_DB_NAME}
+      DJANGO_DB_USER: ${DJANGO_DB_USER}
+      DJANGO_DB_PASSWORD: ${DJANGO_DB_PASSWORD}
     depends_on:
       - db
 
