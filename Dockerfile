@@ -9,12 +9,10 @@ WORKDIR /app
 
 # Install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt gunicorn psycopg2-binary whitenoise
+RUN pip install --no-cache-dir -r requirements.txt gunicorn psycopg2-binary
 
 # Copy all project files
 COPY . .
-
-
 
 # Expose port for Cloud Run
 EXPOSE 8080
