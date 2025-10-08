@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-kwrn%)q2rl5obc6g9w4s!0tdwktyb*rjf8c07y@z-d)%x(w$=&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -83,8 +83,7 @@ DEBUG = os.getenv("DEBUG", "0") == "1"
 
 SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret")
 
-
- # for Cloud Run
+ALLOWED_HOSTS = ["*"]  # for Cloud Run
 
 DATABASES = {
     "default": {
