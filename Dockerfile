@@ -1,5 +1,5 @@
-# Use official Python image
-FROM python:3.10-slim
+# Use an updated official Python image that satisfies dependency requirements
+FROM python:3.11-slim
 
 # Install dependencies
 RUN apt-get update && apt-get install -y gcc libpq-dev && rm -rf /var/lib/apt/lists/*
