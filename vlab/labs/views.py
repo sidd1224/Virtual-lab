@@ -30,27 +30,38 @@ def experiment_dashboard(request):
     })
 
 
-
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
-from .models import Experiment
-
 @login_required
 def run_experiment(request, experiment_id):
     experiment = get_object_or_404(Experiment, id=experiment_id)
 
-    # Assuming your Experiment model has these fields
-    student_class = experiment.experiment_class  # e.g., 8
-    subject = experiment.subject.lower()      # e.g., "Physics" → "physics"
-    experiment_name = experiment.title  # e.g., "ohms_law"
+    # This mapping handles inconsistencies in the JS filenames
+    title_to_filename_map = {
+        "Verification of Archimedes Principle": "Verification_of_archimedes_principle",
+        "Saponification": "Soapification",
+        "Photosynthesis": "Photosynthesis",
+        "Transpiration in Plants": "Transpiration_in_plants",
+        "Chemical Effects of Electric Current": "chemical_properties_of_electric_current",
+        "Ohms Law": "ohms_law",
+        "Surface Tension": "surface_tension",
+        "Amoeba": "ameoba",
+        "Determination of Water Boiling Point": "Determination_of_water_boiling_point",
+        "Force and Newton": "Force_and_newton",
+    }
+
+    student_class = experiment.experiment_class
+    subject = experiment.subject.lower()
+    # Use the mapping to get the correct JS filename
+    experiment_name = title_to_filename_map.get(experiment.title, "")
     
     context = {
         'student_class': student_class,
         'subject': subject,
         'experiment_name': experiment_name,
+        'experiment': experiment, # Pass the whole object
     }
 
-    return render(request, experiment.html_file, context)
+    # All simulations can use the generic template now
+    return render(request, "labs/experiments/class_8/physics/ohms_law.html", context)
 
 
 
