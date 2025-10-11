@@ -34,6 +34,9 @@ DEBUG = os.getenv("DEBUG", "0").lower() in ["1", "true"]
 # Using '*' is acceptable for services like Google Cloud Run that provide a proxy.
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://virtual-lab-715732606815.asia-south1.run.app',
+]
 
 # --- Application Definition ---
 
