@@ -22,6 +22,6 @@ RUN python vlab/manage.py collectstatic --noinput
 # Expose port for Cloud Run
 EXPOSE 8080
 
-# Run migrations + start server, referencing the correct path to manage.py
-CMD ["sh", "-c", "python vlab/manage.py migrate && gunicorn vlab.wsgi:application --bind 0.0.0.0:${PORT:-8080}"]
+# Run migrations + start server, referencing the correct WSGI path for the nested project structure
+CMD ["sh", "-c", "python vlab/manage.py migrate && gunicorn vlab.vlab.wsgi:application --bind 0.0.0.0:${PORT:-8080}"]
 
