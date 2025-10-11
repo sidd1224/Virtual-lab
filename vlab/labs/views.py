@@ -41,7 +41,6 @@ def run_experiment(request, experiment_id):
         "Photosynthesis": "Photosynthesis",
         "Transpiration in Plants": "Transpiration_in_plants",
         "Chemical Effects of Electric Current": "chemical_properties_of_electric_current",
-        "Ohms Law": "ohms_law",
         "Surface Tension": "surface_tension",
         "Amoeba": "ameoba",
         "Determination of Water Boiling Point": "Determination_of_water_boiling_point",

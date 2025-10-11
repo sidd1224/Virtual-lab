@@ -20,11 +20,7 @@ def load_initial_experiments(apps, schema_editor):
             "theory": "This experiment explores how electric current can cause chemical reactions in liquids.",
             "html_file": "labs/experiments/class_8/physics/ohms_law.html"
         },
-        {
-            "title": "Ohms Law", "subject": "Physics", "class": "8",
-            "theory": "Ohm's law states that the current through a conductor between two points is directly proportional to the voltage across the two points.",
-            "html_file": "labs/experiments/class_8/physics/ohms_law.html"
-        },
+     
         {
             "title": "Surface Tension", "subject": "Physics", "class": "8",
             "theory": "This experiment investigates the property of the surface of a liquid that allows it to resist an external force.",
