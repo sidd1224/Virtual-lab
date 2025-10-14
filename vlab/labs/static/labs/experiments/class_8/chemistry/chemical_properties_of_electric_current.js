@@ -1,31 +1,34 @@
+let myFont;
 let switchOn = false;
 let wires = [];
 let isDrawing = false;
 let startTerminalKey = null;
 let arrowOffset = 0;
-
 let terminals = {};
+
+function preload() {
+  // Make sure this font file exists in your local directory
+  myFont = loadFont('/static/labs/fonts/myFont.ttf');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  textFont('Georgia');
-  setupTerminals();
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  textFont(myFont);
   setupTerminals();
 }
 
 function draw() {
   background(245);
-  drawBattery();
-  drawBeaker();
-  drawBulb();
+
+  // Draw circuit components
+  drawBattery(100, 150);
+  drawBeaker(400, 300);
+  drawBulb(650, 150);
   drawSwitch();
   drawWires();
   drawLabels();
 
+  // Draw wire preview
   if (isDrawing && startTerminalKey) {
     let startPos = terminals[startTerminalKey];
     stroke(0);
@@ -33,29 +36,30 @@ function draw() {
     line(startPos.x, startPos.y, mouseX, mouseY);
   }
 
+  // Animate arrows
   arrowOffset += 0.05;
+
+  // Info Panel
+  drawInfoPanel();
 }
 
+// === Setup Circuit Terminals ===
 function setupTerminals() {
-  const h = windowHeight;
-  const w = windowWidth;
-
   terminals = {
-    batteryPos: { x: w * 0.1, y: h * 0.25 },
-    batteryNeg: { x: w * 0.1, y: h * 0.45 },
-    electrode1: { x: w * 0.46, y: h * 0.45 },
-    electrode2: { x: w * 0.54, y: h * 0.45 },
-    bulbPos: { x: w * 0.85, y: h * 0.25 },
-    bulbNeg: { x: w * 0.85, y: h * 0.4 },
-    switchIn: { x: w * 0.45, y: h * 0.3 },
-    switchOut: { x: w * 0.55, y: h * 0.3 }
+    batteryPos: { x: 115, y: 150 },
+    batteryNeg: { x: 115, y: 250 },
+    electrode1: { x: 370, y: 270 },
+    electrode2: { x: 430, y: 270 },
+    bulbPos: { x: 650, y: 170 },
+    bulbNeg: { x: 650, y: 230 },
+    switchIn: { x: 380, y: 190 },
+    switchOut: { x: 420, y: 190 }
   };
 }
 
-function drawBattery() {
-  const x = (windowWidth * 0.1)-5;
-  const y = (windowHeight * 0.25)+20;
+// === Components ===
 
+function drawBattery(x, y) {
   fill(200);
   rect(x, y, 30, 100);
   rect(x + 40, y, 30, 100);
@@ -63,15 +67,12 @@ function drawBattery() {
   textSize(18);
   text('+', x + 5, y - 10);
   text('-', x + 45, y - 10);
-  const z=-35;
-  drawTerminal("batteryPos",z);
-  drawTerminal("batteryNeg",z+8);
+
+  drawTerminal("batteryPos");
+  drawTerminal("batteryNeg");
 }
 
-function drawBeaker() {
-  const x = windowWidth * 0.5;
-  const y = windowHeight * 0.5;
-  const z=20;
+function drawBeaker(x, y) {
   noFill();
   stroke(0);
   strokeWeight(2);
@@ -84,8 +85,8 @@ function drawBeaker() {
   rect(x - 30, y - 50, 10, 80);
   rect(x + 20, y - 50, 10, 80);
 
-  drawTerminal("electrode1",-20);
-  drawTerminal("electrode2",z);
+  drawTerminal("electrode1");
+  drawTerminal("electrode2");
 
   if (circuitComplete()) {
     fill(100, 100, 255, 150);
@@ -96,41 +97,34 @@ function drawBeaker() {
   }
 }
 
-function drawBulb() {
-  const x = windowWidth * 0.85;
-  const y = windowHeight * 0.25;
-  const z = 0;
+function drawBulb(x, y) {
   const glow = circuitComplete();
-
   stroke(0);
   fill(glow ? color(255, 255, 100) : 255);
   ellipse(x, y, 40);
   stroke(0);
   line(x - 10, y, x + 10, y);
 
-  drawTerminal("bulbPos",z);
-  drawTerminal("bulbNeg",z);
+  drawTerminal("bulbPos");
+  drawTerminal("bulbNeg");
 }
 
 function drawSwitch() {
-  const x = windowWidth * 0.45;
-  const y = windowHeight * 0.3;
-  const z=10;
   fill(switchOn ? 'green' : 'red');
-  rect(x, y, 100, 20, 5);
+  rect(380, 180, 40, 20, 5);
   fill(255);
   textSize(12);
   textAlign(CENTER, CENTER);
-  text(switchOn ? 'ON' : 'OFF', x + 40, y + 10);
+  text(switchOn ? 'ON' : 'OFF', 400, 190);
 
-  drawTerminal("switchIn",30);
-  drawTerminal("switchOut",10);
+  drawTerminal("switchIn");
+  drawTerminal("switchOut");
 }
 
-function drawTerminal(key,z) {
+function drawTerminal(key) {
   let pos = terminals[key];
   fill(0);
-  ellipse(pos.x-z, pos.y, 8);
+  ellipse(pos.x, pos.y, 8);
 }
 
 function drawWires() {
@@ -161,15 +155,16 @@ function drawArrowOnLine(a, b) {
   pop();
 }
 
-function mousePressed() {
-  const x = windowWidth * 0.45;
-  const y = windowHeight * 0.3;
+// === Mouse Interaction ===
 
-  if (mouseX > x && mouseX < x + 80 && mouseY > y && mouseY < y + 20) {
+function mousePressed() {
+  // Toggle switch
+  if (mouseX > 380 && mouseX < 420 && mouseY > 180 && mouseY < 200) {
     switchOn = !switchOn;
     return;
   }
 
+  // Start drawing a wire
   for (let key in terminals) {
     let t = terminals[key];
     if (dist(mouseX, mouseY, t.x, t.y) < 10) {
@@ -194,29 +189,49 @@ function mouseReleased() {
   startTerminalKey = null;
 }
 
+// === UI and Logic ===
+
 function drawLabels() {
   noStroke();
   fill(0);
   textSize(14);
   textAlign(LEFT);
-  text("Battery", windowWidth * 0.08, windowHeight * 0.48);
-  text("Beaker with Electrolyte", windowWidth * 0.45, windowHeight * 0.68);
-  text("Electrodes", windowWidth * 0.40, windowHeight * 0.43);
-  text("       Switch (clickable)", windowWidth * 0.43, windowHeight * 0.28);
-  text("Bulb", windowWidth * 0.83, windowHeight * 0.23);
+  text("Battery", 90, 270);
+  text("Beaker with Electrolyte", 370, 440);
+  text("Electrodes", 375, 260);
+  text("Switch (clickable)", 370, 170);
+  text("Bulb", 640, 140);
+}
+
+function drawInfoPanel() {
+  fill(0);
+  textSize(14);
+  textFont(myFont);
+  textAlign(LEFT);
+
+  text("Experiment: Electrolysis Circuit Simulation", 20, 40);
+  text("Click on the switch to turn ON/OFF the circuit.", 20, 60);
+  text("Click and drag between terminals to connect wires.", 20, 80);
+  text("Switch: " + (switchOn ? "ON" : "OFF"), 20, 100);
+  text("Connections: " + wires.length, 20, 120);
+  text("Circuit Complete: " + (circuitComplete() ? "YES" : "NO"), 20, 140);
 }
 
 function circuitComplete() {
   if (!switchOn) return false;
 
+  // Build graph of connections
   let graph = {};
-  for (let key in terminals) graph[key] = [];
+  for (let key in terminals) {
+    graph[key] = [];
+  }
 
   for (let wire of wires) {
     graph[wire.a].push(wire.b);
     graph[wire.b].push(wire.a);
   }
 
+  // BFS from batteryPos to batteryNeg
   let visited = {};
   let queue = ["batteryPos"];
 
@@ -230,4 +245,8 @@ function circuitComplete() {
   }
 
   return false;
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
